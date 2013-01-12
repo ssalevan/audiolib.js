@@ -1,6 +1,7 @@
 var BandLimitedOscillator = Source({
 	name: 'BandLimitedBandLimitedOscillator',
 	params: {
+		phase: 0,
 		frequency: 440,
 		tables: null,
 		tableSize: 4096,
@@ -44,8 +45,9 @@ BandLimitedOscillator.waveforms.triangle = function (real, imag) {
 }
 
 
-BandLimitedOscillator.prototype.process = function (dst, phases) {
+BandLimitedOscillator.prototype.process = function (dst) {
 	var frequencies = this.params.frequency
+	var phases = this.params.phase
 
 	this._calculateProduct(dst, phases, frequencies)
 }

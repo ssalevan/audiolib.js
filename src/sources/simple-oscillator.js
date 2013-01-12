@@ -1,6 +1,7 @@
 var SimpleOscillator = Source({
 	name: 'SimpleOscillator',
 	params: {
+		phase: 0,
 		waveform: 'sine'
 	}
 })
@@ -46,8 +47,9 @@ SimpleOscillator.waveforms.pulse = function (dst, phases) {
 }
 
 
-SimpleOscillator.prototype.process = function (dst, phases) {
+SimpleOscillator.prototype.process = function (dst) {
 	var waveform = this.params.waveform
+	var phases = this.params.phase
 
 	SimpleOscillator.waveforms[waveform](dst, phases)
 }
