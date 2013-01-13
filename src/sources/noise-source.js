@@ -17,12 +17,12 @@ NoiseSource.colors.white = function () {}
 NoiseSource.colors.brown = function (dst, filter, sampleRate) {
 	filter.a[0] = Math.exp(-200 * Math.PI / sampleRate)
 	filter.b[0] = 1 - filter.a[0]
-	filter.filter(dst, dst)
+	filter.filter(dst, new Float32Array(dst))
 	DSP.mul(dst, dst, 6.2)
 }
 
 NoiseSource.colors.pink = function (dst, filter) {
-	filter.filter(dst, dst)
+	filter.filter(dst, new Float32Array(dst))
 	DSP.mul(dst, dst, 0.55)
 }
 
