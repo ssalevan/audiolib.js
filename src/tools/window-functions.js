@@ -1,5 +1,4 @@
-var DSP = require('dsp').DSP
-var windowFunctions = module.exports = {}
+var windowFunctions = {}
 
 windowFunctions.Bartlett = function (dst) {
 	var max = dst.length - 1
