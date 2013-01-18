@@ -2,3 +2,6 @@ test
 build-essentials
 node_modules
 src
+Makefile
+.travis.yml
+*.DS_Store
