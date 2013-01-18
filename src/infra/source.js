@@ -33,6 +33,8 @@ function Source (opts) {
 	fn.prototype.constructor = fn
 	fn.prototype.type = opts.name
 
+	AudioKit.sources[opts.name] = fn
+
 	return EventEmitter.create(fn)
 }
 
@@ -44,3 +46,6 @@ Source.defaults = {
 Source.prototype = EventEmitter()
 
 Source.prototype.constructor = Source
+
+AudioKit.Source = Source
+AudioKit.sources = Object.create(null)

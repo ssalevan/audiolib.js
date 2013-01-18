@@ -1,5 +1,5 @@
 var BandLimitedOscillator = Source({
-	name: 'BandLimitedBandLimitedOscillator',
+	name: 'BandLimitedOscillator',
 	params: {
 		phase: 0,
 		frequency: 440,
