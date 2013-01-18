@@ -72,8 +72,8 @@ BandLimitedOscillator.prototype._calculateProduct = function (dst, phases, frequ
 		var fundamentalFrequency = Math.abs(frequencies[n])
 		var ratio = fundamentalFrequency > 0 ? fundamentalFrequency /
 			lowestFundamentalFrequency : 0.5
-		var centsAboveLowestFrequency = Math.log(ratio)
-			/ Math.LN2 * 1200
+		var centsAboveLowestFrequency = Math.log(ratio) /
+			Math.LN2 * 1200
 		var pitchRange = 1 + centsAboveLowestFrequency / centsPerRange
 		pitchRange = Math.max(pitchRange, 0)
 		pitchRange = Math.min(pitchRange, numberOfRanges - 1)

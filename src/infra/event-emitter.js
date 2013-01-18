@@ -1,4 +1,3 @@
-/*jshint asi:true */
 var EventEmitter = function () {
 "use strict";
 

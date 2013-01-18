@@ -4,11 +4,9 @@ var Filter = require('dsp').Filter
 var FFT = require('dsp').FFT
 
 ``
-include('infra/extend')
-include('infra/event-emitter')
-include('infra/source')
-include('sources/oscillation-source')
-include('sources/noise-source')
-include('sources/simple-oscillator')
-include('sources/band-limited-oscillator')
+
+include('infra/index')
+include('tools/index')
+include('sources/index')
+
 ``

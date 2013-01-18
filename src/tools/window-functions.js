@@ -1,4 +1,6 @@
-var windowFunctions = {}
+var windowFunctions = Object.create(null)
+AudioKit.tools = AudioKit.tools || Object.create(null)
+AudioKit.tools.windowFunctions = windowFunctions
 
 windowFunctions.Bartlett = function (dst) {
 	var max = dst.length - 1

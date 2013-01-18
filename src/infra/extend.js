@@ -1,5 +1,3 @@
-/*jshint asi:true */
-
 /**
  * Extends an object with the own properties of other objects.
  *
@@ -8,7 +6,6 @@
  *
  * @return The object passed as 'obj'.
 */
-var hasOwn = Function.call.bind(Object.prototype.hasOwnProperty)
 var extend = function (obj) {
 	for (var i=1; i<arguments.length; i++) {
 		if (!arguments[i]) continue
@@ -22,3 +19,5 @@ var extend = function (obj) {
 
 	return obj
 }
+
+var hasOwn = Function.call.bind(Object.prototype.hasOwnProperty)

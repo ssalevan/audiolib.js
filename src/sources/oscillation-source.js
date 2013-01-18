@@ -45,16 +45,17 @@ OscillationSource.prototype._calculatePhases = function (phases, frequencies, fr
 
 OscillationSource.prototype._modulatePulseWidth = function (dst, phases, pulseWidth) {
 	/* FIXME: this gives weird results */
+	var i
 
 	if (pulseWidth instanceof Float32Array) {
-		for (var i=0; i<dst.length; i++) {
+		for (i=0; i<dst.length; i++) {
 			dst[i] = phases[i] < pulseWidth[i] ?
 				phases[i] / pulseWidth[i] :
 				(phases[i] - pulseWidth[i]) /
 				(1 - pulseWidth[i])
 		}
 	} else {
-		for (var i=0; i<dst.length; i++) {
+		for (i=0; i<dst.length; i++) {
 			dst[i] = phases[i] < pulseWidth ?
 				phases[i] / pulseWidth :
 				(phases[i] - pulseWidth) /
