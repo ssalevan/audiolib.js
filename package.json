@@ -2,7 +2,7 @@
   "name": "audiokit",
   "version": "0.0.0",
   "description": "A toolkit of audio processing tools",
-  "main": "./release/index.js",
+  "main": "./release/node/index.js",
   "scripts": {
     "test": "make test",
     "prepublish": "make node"

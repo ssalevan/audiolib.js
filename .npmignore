@@ -3,5 +3,6 @@ build-essentials
 node_modules
 src
 Makefile
+release/browser
 .travis.yml
 *.DS_Store
