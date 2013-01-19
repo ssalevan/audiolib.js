@@ -16,7 +16,7 @@ BROWSER_MIN := $(BROWSER_DIR)/audiokit-$(VERSION)-min.js
 BROWSER_ZIP := $(BROWSER_DIR)/audiokit-$(VERSION).zip
 BROWSER_TAR_GZ := $(BROWSER_DIR)/audiokit-$(VERSION).tar.gz
 BROWSER_RELEASE := $(BROWSER_JS) $(BROWSER_MIN) $(BROWSER_ZIP) $(BROWSER_TAR_GZ)
-BROWSER_SOURCE := $(SOURCE_DIR)/index-node.js
+BROWSER_SOURCE := $(SOURCE_DIR)/index-browser.js
 
 DOCS_DIR := $(RELEASE_DIR)/documentation
 DOCS_TEMPLATE := $(BUILD_DIR)/documentation/template.html
