@@ -29,6 +29,8 @@ DOCGENERATOR ?= $(NODE_MODULES)/jak-docgenerator/bin/docgenerator.js
 UGLIFY ?= $(NODE_MODULES)/uglify-js/bin/uglifyjs
 JSHINT ?= $(NODE_MODULES)/jshint/bin/hint --config $(BUILD_DIR)/jshint/config.json
 
+UGLIFY_FLAGS ?= -c -m
+
 
 all: $(NODE_RELEASE) $(BROWSER_JS) $(DOCS_HTML)
 node: $(NODE_RELEASE)
@@ -47,7 +49,7 @@ $(BROWSER_JS): $(BROWSER_SOURCE)
 	$(JSHINT) $@ || rm $@
 
 $(BROWSER_MIN): $(BROWSER_JS)
-	$(UGLIFY) $^ > $@
+	$(UGLIFY) $^ $(UGLIFY_FLAGS) > $@
 
 $(BROWSER_TAR_GZ): $(BROWSER_JS) $(BROWSER_MIN)
 	rm -rf $@
