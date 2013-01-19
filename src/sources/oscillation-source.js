@@ -12,11 +12,23 @@ var OscillationSource = Source({
 })
 
 OscillationSource.prototype.process = function (phases, frequencies) {
+	var offset = this.blockSize - Math.min(phases.length, frequencies.length)
 	var frequency = this.params.frequency
 	var detune = this.params.detune
 	var phaseOffset = this.params.phaseOffset
 	var pulseWidth = this.params.pulseWidth
 	var lastPhase = this._temp.lastPhase
+
+	if (offset) {
+		frequency = frequency instanceof Float32Array ?
+			frequency.subarray(offset) : frequency
+		detune = detune instanceof Float32Array ?
+			detune.subarray(offset) : detune
+		phaseOffset = phaseOffset instanceof Float32Array ?
+			phaseOffset.subarray(offset) : phaseOffset
+		pulseWidth = pulseWidth instanceof Float32Array ?
+			pulseWidth.subarray(offset) : pulseWidth
+	}
 
 	this._calculatePhases(phases, frequencies, frequency, detune, phaseOffset, this.sampleRate, lastPhase)
 	DSP.fract(phases, phases)

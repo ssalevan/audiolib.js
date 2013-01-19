@@ -48,8 +48,13 @@ SimpleOscillator.waveforms.pulse = function (dst, phases) {
 
 
 SimpleOscillator.prototype.process = function (dst) {
+	var offset = this.blockSize - dst.length
 	var waveform = this.params.waveform
 	var phases = this.params.phase
+
+	if (offset) {
+		phases = phases.subarray(offset)
+	}
 
 	SimpleOscillator.waveforms[waveform](dst, phases)
 }
