@@ -1,4 +1,5 @@
 function FourPoleLPFilter (sampleRate, cutoff, resonance, voltage) {
+  console.log("SAMP")
   this.initializeFilter();
   this.sampleRate = isNaN(sampleRate) ? this.sampleRate : sampleRate;
   if (!isNaN(cutoff)) {
@@ -12,14 +13,14 @@ function FourPoleLPFilter (sampleRate, cutoff, resonance, voltage) {
   }
 }
 
-function tanh (arg) {
-  return (Math.exp(arg) - Math.exp(-arg)) / (Math.exp(arg) + Math.exp(-arg));
+function tanh(x){
+  return 2.0 / (1.0 + Math.exp(-2.0 * x)) - 1.0;
 }
 
 FourPoleLPFilter.prototype = {
   resonance: 0.10,
   resonanceQuad: 0.0,
-  cutoff: 1000.0,
+  cutoff: 20000.0,
   acr: 0.0,
   tune: 0.0,
 
@@ -38,6 +39,8 @@ FourPoleLPFilter.prototype = {
   initializeFilter: function () {
     this.setCutoff(1000);
     this.setResonance(0.1);
+    console.log("CUTOFF: ", this.cutoff);
+    console.log("RES: ", this.resonance);
   },
 
   setCutoff: function (cut) {
@@ -87,25 +90,24 @@ FourPoleLPFilter.prototype = {
    */
   pushSample: function (s) {
     var local_output;
-
     for (var j = 0; j < 2; ++j) {
       // Filter stages (Huovilainen Fig 22)   
-      for (var stage = 0; stage < 4; ++stage) {
+      for (var curStage = 0; curStage < 4; ++curStage) {
         // Stages 1, 2, 3
-        if (stage != 0) {
-          this.input = this.stage[stage-1];
-          this.stageTANH[stage - 1] = tanh(this.input * this.thermal); 
-          this.stage[stage] = this.stageZ1[stage] + this.tune *
-              this.stageTANH[stage - 1] - 
-              (stage != 3 ? this.stageTANH[stage] : tanh(this.stageZ1[stage] * this.thermal));
+        if (curStage != 0) {
+          this.input = this.stage[curStage-1];
+          this.stageTANH[curStage - 1] = tanh(this.input * this.thermal); 
+          this.stage[curStage] = this.stageZ1[curStage] + this.tune *
+              this.stageTANH[curStage - 1] - 
+              (curStage != 3 ? this.stageTANH[curStage] : tanh(this.stageZ1[curStage] * this.thermal));
         } 
         // New input, stage 0
         else {
           this.input = s - this.resonanceQuad * this.output;
-          this.stage[stage] = this.stageZ1[stage] + this.tune *
-              (tanh(this.input * this.thermal) - this.stageTANH[stage]); 
+          this.stage[curStage] = this.stageZ1[curStage] + this.tune *
+              (tanh(this.input * this.thermal) - this.stageTANH[curStage]); 
         }
-        this.stageZ1[stage] = this.stage[stage];
+        this.stageZ1[curStage] = this.stage[curStage];
       }
       // .5 sample delay for phase compensation 
       // This can be realized by averaging two samples.
@@ -113,6 +115,7 @@ FourPoleLPFilter.prototype = {
       this.last_stage = this.stage[3];
     }
     this.output = local_output;
+    console.log(s, this.output);
     return this.output;
   },
 
