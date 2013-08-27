@@ -17,6 +17,7 @@ audioLib.Compressor	= Compressor;
 audioLib.Convolution	= Convolution;
 audioLib.Delay		= Delay;
 audioLib.Distortion	= Distortion;
+audioLib.FourPoleLPFilter = FourPoleLPFilter;
 audioLib.GainController	= GainController;
 audioLib.IIRFilter	= IIRFilter;
 audioLib.LP12Filter	= LP12Filter;
@@ -92,7 +93,7 @@ void function (names, i) {
 	effects('BiquadHighPassFilter',	BiquadFilter.HighPass);
 	effects('BiquadLowPassFilter',	BiquadFilter.LowPass);
 	effects('FreeverbAllPassFilter',Freeverb.AllPassFilter);
-}(['BiquadFilter', 'BitCrusher', 'Chorus', 'CombFilter', 'Compressor', 'Convolution', 'Delay', 'Distortion', 'GainController', 'IIRFilter', 'LP12Filter', 'Limiter', 'Reverb', 'Amplitude', 'FFT']);
+}(['BiquadFilter', 'BitCrusher', 'Chorus', 'CombFilter', 'Compressor', 'Convolution', 'Delay', 'Distortion', 'FourPoleLPFilter', 'GainController', 'IIRFilter', 'LP12Filter', 'Limiter', 'Reverb', 'Amplitude', 'FFT']);
 
 void function (names, i) {
 	function generators (name, effect, prototype, argNames) {

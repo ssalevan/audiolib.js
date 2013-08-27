@@ -123,6 +123,20 @@ FourPoleLPFilter.prototype = {
    */
   getMix: function () {
     return this.output;
+  },
+
+  setParam: function (param, value) {
+    switch (param) {
+      case 'cutoff':
+        this.setCutoff(value);
+        break;
+      case 'resonance':
+        this.setResonance(value);
+        break;
+      case 'voltage':
+        this.setTransistorVoltage(voltage);
+        break;
+    }
   }
 
 };
