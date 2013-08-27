@@ -1,10 +1,11 @@
 function FourPoleLPFilter (sampleRate, cutoff, resonance, voltage) {
+  this.initializeFilter();
   this.sampleRate = isNaN(sampleRate) ? this.sampleRate : sampleRate;
   if (!isNaN(cutoff)) {
-    this.computeCutoff(cutoff);
+    this.setCutoff(cutoff);
   }
   if (!isNaN(resonance)) {
-    this.computeResonance(resonance);
+    this.setResonance(resonance);
   }
   if (!isNaN(voltage)) {
     this.setTransistorVoltage(voltage);
@@ -26,27 +27,20 @@ FourPoleLPFilter.prototype = {
   output: 0.0,
 
   sampleRate: 44100.0,
-  stage: [],
-  stageZ1: [],
-  stageTANH: [],
+  stage: [ 0.0, 0.0, 0.0, 0.0 ],
+  stageZ1: [ 0.0, 0.0, 0.0, 0.0 ],
+  stageTANH: [ 0.0, 0.0, 0.0 ],
 
   voltage: 1.22070313,
   thermal: (1.0 / 1.22070313),
   lastStage: 0,
 
   initializeFilter: function () {
-    for (var i = 0; i < 4; i++) {
-      this.stage[i] = 0.0;
-      this.stageZ1[i] = 0.0;
-    }
-    for (int i = 0; i < 3; i++) {
-      this.stageTANH[i] = 0.0;
-    }
-    this.computeCutoff(1000);
-    this.computeResonance(0.1);
+    this.setCutoff(1000);
+    this.setResonance(0.1);
   },
 
-  computeCutoff: function (cut) {
+  setCutoff: function (cut) {
     this.cutoff = cut;
 
     // Normalized Cutoff
@@ -67,13 +61,20 @@ FourPoleLPFilter.prototype = {
     this.tune = (1.0 - Math.exp(-( (2*Math.PI) * x_2 * fcr))) / this.thermal;
   },
 
-  computeResonance: function (res) {
+  setResonance: function (res) {
     if (res < 0)
       this.resonance = 0;
     else
       this.resonance = r;
     // (Modified Huovilainen Fig 23)
     this.resonanceQuad = (4.0 * (double) this.resonance * this.acr);
+  },
+
+  setTransistorVoltage: function (V) {
+    // Base-emitter voltages of the transistors
+    this.thermal = (1.0 / V);
+
+    this.initializeFilter();
   },
 
   /**
