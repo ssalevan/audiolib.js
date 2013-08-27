@@ -41,8 +41,8 @@ var config = {
 
 	concat: {
 		main: {
-			src: '<config:IN>',
-			dest: '<config:OUT>'
+			src: ['src/wrapper-start.js', 'src/api-*.js', 'src/*/*.js', 'src/wrapper-end.js'],
+			dest: 'lib/audiolib.js'
 		}
 	},
 
@@ -85,7 +85,7 @@ var config = {
 			audioLib: true,
 			Sink: true
 		}
-	},
+},
 
 	uglify: {}
 }
@@ -95,7 +95,7 @@ insert(config.IN, 0, config.WRAPPERS)
 insert(config.IN, 1, config.SOURCE)
 insert(config.RELEASE, 0, [config.OUT, config.OUT_MIN])
 
-grunt.initConfig(config)
+grunt.config.init(config)
 
 grunt.registerTask('default', 'lint:main concat:main')
 grunt.registerTask('all', 'lint:main concat:main min:main docs')
@@ -137,5 +137,7 @@ grunt.registerTask('integrate', 'Update the local sink.js from the subrepo.', fu
 
 grunt.registerTask('update', 'Updates docs, wrappers and the package.', 'docs wrappers package')
 grunt.registerTask('release', 'Packages generated files for release.', 'tar:main zip:main')
+
+grunt.loadNpmTasks('grunt-contrib-concat');
 
 }

@@ -58,16 +58,18 @@ FourPoleLPFilter.prototype = {
 
     // Normal scaled impulse invariant transformed one-pole filter; exp() models resonance
     // The coefficient g determines the cutoff frequency
-    this.tune = (1.0 - Math.exp(-( (2*Math.PI) * x_2 * fcr))) / this.thermal;
+    this.tune = (1.0 - Math.exp(-((2*Math.PI) * x_2 * fcr))) / this.thermal;
   },
 
   setResonance: function (res) {
-    if (res < 0)
+    if (res < 0) {
       this.resonance = 0;
-    else
-      this.resonance = r;
+    }
+    else {
+      this.resonance = res;
+    }
     // (Modified Huovilainen Fig 23)
-    this.resonanceQuad = (4.0 * (double) this.resonance * this.acr);
+    this.resonanceQuad = 4.0 * this.resonance * this.acr;
   },
 
   setTransistorVoltage: function (V) {
@@ -123,4 +125,4 @@ FourPoleLPFilter.prototype = {
     return this.output;
   }
 
-}
+};

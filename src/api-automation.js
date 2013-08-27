@@ -178,7 +178,7 @@ Automation.modes = {
 	}
 };
 
-Automation.__constructror = AutomationClass;
+Automation.__constructor = AutomationClass;
 
 onready(function () {
 	audioLib.BufferEffect.prototype.addAutomation	=
